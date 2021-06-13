@@ -4,7 +4,7 @@ AFTER_CLONE = $(IMGUI_DIR)/backends/imgui_impl_sdl.cpp $(IMGUI_DIR)/backends/img
 UNAME_S := $(shell uname -s)
 
 CXXFLAGS = -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends
-CXXFLAGS += -g -Wall -Wformat
+CXXFLAGS += -g -fpermissive
 CXXFLAGS += -fPIC -I.
 LIBS =
 
@@ -17,16 +17,13 @@ OBJS = $(addsuffix .o, $(basename $(notdir $(SOURCES))))
 ifeq ($(UNAME_S), Linux) # Linux
 	LIBS += -lGl -ldl `sdl2-config --libs`
 	CXXFLAGS += `sdl2-config --cflags`
-	CFLAGS = $(CXXFLAGS)
 else ifeq ($(UNAME_S), Darwin) # Mac
 	LIBS += -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo `sdl2-config --libs`
 	LIBS += -L/usr/local/lib -L/opt/local/lib
 	CXXFLAGS += `sdl2-config --cflags`
 	CXXFLAGS += -I/usr/local/include -I/opt/local/include
-	CFLAGS = $(CXXFLAGS)
 else # Windows
     LIBS += -lgdi32 -lopengl32 -limm32
-    CFLAGS = $(CXXFLAGS)
 endif
 
 all: cimgui_path checkpoint $(OBJS)
@@ -45,7 +42,7 @@ checkpoint: $(AFTER_CLONE)
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 %.o:$(IMGUI_DIR)/examples/libs/gl3w/GL/%.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 %.o:src/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
