@@ -1,4 +1,4 @@
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include "cimgui/imgui/backends/imgui_impl_sdl.h"
 
 extern "C" {
