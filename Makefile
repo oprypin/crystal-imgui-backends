@@ -25,8 +25,7 @@ else ifeq ($(UNAME_S), Darwin) # Mac
 	CXXFLAGS += -I/usr/local/include -I/opt/local/include
 	CFLAGS = $(CXXFLAGS)
 else # Windows
-    LIBS += -lgdi32 -lopengl32 -limm32 `pkg-config --static --libs sdl2`
-    CXXFLAGS += `pkg-config --cflags sdl2`
+    LIBS += -lgdi32 -lopengl32 -limm32
     CFLAGS = $(CXXFLAGS)
 endif
 
