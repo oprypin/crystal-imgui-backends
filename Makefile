@@ -56,7 +56,8 @@ checkpoint: $(AFTER_CLONE)
 cimgui_path: init_submodules
 	cmake -DCMAKE_CXX_FLAGS='-DIMGUI_USE_WCHAR32' -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG='' -S cimgui -B cimgui
 	cmake --build cimgui
-	if [ -e "cimgui/cimgui.so" ]; then ln -f -s cimgui.so cimgui/libcimgui.so; fi  # or .dylib on macOS
+	if [ -f cimgui/cimgui.so ]; then ln -f -s cimgui.so cimgui/libcimgui.so; fi
+	if [ -f cimgui/cimgui.dylib ]; then ln -f -s cimgui.dylib cimgui/libcimgui.dylib; fi
 
 init_submodules: cimgui_src imgui_src
 

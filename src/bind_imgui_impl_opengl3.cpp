@@ -1,5 +1,9 @@
 #include <cstdio>
-#include <GL/gl.h>
+#ifdef __APPLE__
+#  include <OpenGL/gl.h>
+#else
+#  include <GL/gl.h>
+#endif
 #include "cimgui/imgui/backends/imgui_impl_opengl3.h"
 
 extern "C" {
