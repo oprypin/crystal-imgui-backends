@@ -1,9 +1,18 @@
 require "sdl"
 require "imgui"
 
-@[Link("gl")]
+{% if flag?(:darwin) %}
+  @[Link(framework: "OpenGL")]
+  @[Link(framework: "CoreFoundation")]
+{% elsif flag?(:win32) %}
+  @[Link("OpenGL32")]
+{% else %}
+  @[Link("GL")]
+{% end %}
 @[Link("cimgui")]
-@[Link("stdc++")]
+{% unless flag?(:win32) %}
+  @[Link("stdc++")]
+{% end %}
 @[Link(ldflags: "-L#{__DIR__}/../cimgui #{__DIR__}/../*.o")]
 lib LibImGuiBackends
   # SDL2
