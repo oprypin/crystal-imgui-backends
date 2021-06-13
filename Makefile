@@ -59,7 +59,7 @@ shard: all
 ########## Setting up dependencies
 
 cimgui_path: init_submodules
-	cmake -DCMAKE_CXX_FLAGS='-DIMGUI_USE_WCHAR32' -S cimgui -B cimgui
+	cmake -DCMAKE_CXX_FLAGS='-DIMGUI_USE_WCHAR32' -DCMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG=cimgui -S cimgui -B cimgui
 	cmake --build cimgui
 	ln -f -s cimgui/cimgui.so libcimgui.so  # or .dylib on macOS
 
